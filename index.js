@@ -9,6 +9,8 @@ const VACCINE_AVAILABILITY_API = CONFIG.VACCINE_AVAILABILITY_API
 const DISTRICT_ID = CONFIG.DISTRICT_ID
 
 // run every minutes
+
+checkVaccineAvailabilityAndSendMessages()
 cron.schedule('* * * * *', () => {
   checkVaccineAvailabilityAndSendMessages()
 })
@@ -22,6 +24,7 @@ function formatDate () {
 }
 
 function checkVaccineAvailabilityAndSendMessages () {
+  console.log('fetch data from cowin')
   const cowinQs = {
     district_id: DISTRICT_ID,
     date: formatDate()
@@ -90,7 +93,7 @@ function sendTelegramMessage (slotAvailability) {
       if (err) {
         console.error('Error while sending message to telegram', err)
       } else {
-        console.log('Send vaccine slot availability to telegram')
+        console.log('Message sent to telegram')
       }
     })
   })
